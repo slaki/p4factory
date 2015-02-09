@@ -1,0 +1,9 @@
+/build
+/.*_ts
+/dependmodules.x
+/simple_router.mk
+/*.pcap
+/simple_router
+/lg_pd.mk
+/main.c
+/of-tests/pd_thrift

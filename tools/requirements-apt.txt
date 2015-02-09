@@ -1,0 +1,41 @@
+# list of required Ubuntu packages for the Barefoot build environment
+# LJ Wobker 12/3/2014
+# to one-shot install all of these, use:  apt-get install $(grep -vE "^\s*#" requirements-apt.txt | tr "\n" " ")
+
+automake
+bison
+bridge-utils
+doxygen
+flex
+g++
+git
+pkg-config
+libboost-dev
+libboost-filesystem-dev
+libboost-program-options-dev
+libboost-system-dev
+libboost-test-dev
+libedit-dev
+libevent-dev
+libfreetype6-dev
+libhiredis-dev
+libjudy-dev
+libnl-3-dev
+libnl-route-3-dev
+libpcap-dev
+libpng-dev
+libssl-dev
+libtool
+libyaml-0-2
+mininet
+python-pygraph
+python-dev
+python-pip
+python-pygraphviz
+python-scapy
+python-setuptools
+python-thrift
+python-yaml
+redis-server
+thrift-compiler
+wireshark

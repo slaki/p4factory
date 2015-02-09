@@ -1,0 +1,9 @@
+jsonpickle
+matplotlib
+networkx
+numpy
+ply
+pygraphviz
+pyparsing
+pyyaml
+termcolor

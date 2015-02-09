@@ -1,0 +1,6 @@
+Templates for the P4 compiler go in this directory.
+
+The file organization is based on where the product files
+are to be placed.  (Details TBD).
+
+
