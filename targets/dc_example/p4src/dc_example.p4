@@ -32,21 +32,8 @@ action on_miss() {
 /* Spanning tree table */
 #include "table_definitions/spanning_tree.p4"
 
-action set_outer_rmac_hit_flag() {
-    modify_field(ingress_metadata.outer_rmac_hit, TRUE);
-}
-
-table outer_rmac {
-    reads {
-        ingress_metadata.outer_rmac_group : exact;
-        ingress_metadata.lkp_mac_da : exact;
-    }
-    actions {
-        nop;
-        set_outer_rmac_hit_flag;
-    }
-    size : OUTER_ROUTER_MAC_TABLE_SIZE;
-}
+/* Outer RMAC table */
+#include "table_definitions/outer_rmac.p4"
 
 action set_tunnel_termination_flag() {
     modify_field(ingress_metadata.tunnel_terminate, TRUE);
