@@ -35,47 +35,11 @@ action on_miss() {
 /* Outer RMAC table */
 #include "table_definitions/outer_rmac.p4"
 
-action set_tunnel_termination_flag() {
-    modify_field(ingress_metadata.tunnel_terminate, TRUE);
-}
+/* IPv4 Dest VTEP table */
+#include "table_definitions/ipv4_dest_vtep.p4"
 
-table ipv4_dest_vtep {
-    reads {
-        ingress_metadata.vrf : exact;
-        ingress_metadata.lkp_ipv4_da : exact;
-        ingress_metadata.lkp_ip_proto : exact;
-        ingress_metadata.lkp_l4_dport : exact;
-    }
-    actions {
-        nop;
-        set_tunnel_termination_flag;
-    }
-    size : DEST_TUNNEL_TABLE_SIZE;
-}
-
-
-action set_src_vtep_miss_flag() {
-    modify_field(ingress_metadata.src_vtep_miss, TRUE);
-}
-
-action set_tunnel_lif(lif) {
-    modify_field(ingress_metadata.tunnel_lif, lif);
-}
-
-table ipv4_src_vtep {
-    reads {
-        ingress_metadata.vrf : exact;
-        ingress_metadata.lkp_ipv4_sa : exact;
-    }
-    actions {
-        nop;
-        set_tunnel_lif;
-        set_src_vtep_miss_flag;
-    }
-    size : SRC_TUNNEL_TABLE_SIZE;
-}
-
-
+/* IPv4 Src VTEP table */
+#include "table_definitions/ipv4_src_vtep.p4"
 
 action terminate_tunnel_inner_ipv4(bd, vrf,
         rmac_group, bd_label,
