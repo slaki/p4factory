@@ -23,20 +23,8 @@ action on_miss() {
 /* Table to validate outer IP header */
 #include "table_definitions/validate_outer_ipv4_packet.p4"
 
-action set_ifindex(ifindex, if_label) {
-    modify_field(ingress_metadata.ifindex, ifindex);
-    modify_field(ingress_metadata.if_label, if_label);
-}
-
-table port_mapping {
-    reads {
-        standard_metadata.ingress_port : exact;
-    }
-    actions {
-        set_ifindex;
-    }
-    size : PORTMAP_TABLE_SIZE;
-}
+/* Port mapping table */
+#include "table_definitions/port_mapping.p4"
 
 table port_vlan_mapping {
     reads {
