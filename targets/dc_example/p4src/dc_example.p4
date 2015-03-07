@@ -213,41 +213,8 @@ control ingress {
     }
 }
 
-/* RID table */
-#include "table_definitions/rid.p4"
-
-/* Tunnel decap table */
-#include "table_definitions/tunnel_decap.p4"
-
-/* egress_bd_map table */
-#include "table_definitions/egress_bd_map.p4"
-
-/* rewrite table */
-#include "table_definitions/rewrite.p4"
-
-/* tunnel_rewrite table */
-#include "table_definitions/tunnel_rewrite.p4"
-
-/* tunnel_src_rewrite table */
-#include "table_definitions/tunnel_src_rewrite.p4"
-
-/* tunnel_dst_rewrite table */
-#include "table_definitions/tunnel_dst_rewrite.p4"
-
-/* outer_mac table */
-#include "table_definitions/outer_mac.p4"
-
-/* egress_block table */
-#include "table_definitions/egress_block.p4"
-
-/* egress_vlan_xlate  table */
-#include "table_definitions/egress_vlan_xlate.p4"
-
-/* egress_system_acl table */
-#include "table_definitions/egress_system_acl.p4"
-
-/* cpu_rewrite table */
-#include "table_definitions/cpu_rewrite.p4"
+/* Egress tables */
+#include "table_definitions/egress_tables.p4"
 
 control egress {
     if (egress_metadata.egress_bypass == FALSE) {
