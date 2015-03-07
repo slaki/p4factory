@@ -11,11 +11,8 @@
 metadata ingress_metadata_t ingress_metadata;
 metadata egress_metadata_t egress_metadata;
 
-action nop() {
-}
-
-action on_miss() {
-}
+/* Null actions, nop() and on_miss() */
+#include "includes/null_actions.p4"
 
 /* All ingress tables */
 #include "table_definitions/ingress_tables.p4"
