@@ -29,20 +29,8 @@ action on_miss() {
 /* Port VLAN mapping table */
 #include "table_definitions/port_vlan_mapping.p4"
 
-action set_stp_state(stp_state) {
-    modify_field(ingress_metadata.stp_state, stp_state);
-}
-
-table spanning_tree {
-    reads {
-        ingress_metadata.ifindex : exact;
-        ingress_metadata.stp_group: exact;
-    }
-    actions {
-        set_stp_state;
-    }
-    size : SPANNING_TREE_TABLE_SIZE;
-}
+/* Spanning tree table */
+#include "table_definitions/spanning_tree.p4"
 
 action set_outer_rmac_hit_flag() {
     modify_field(ingress_metadata.outer_rmac_hit, TRUE);
