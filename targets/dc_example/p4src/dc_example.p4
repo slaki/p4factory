@@ -3,11 +3,11 @@
 #include "includes/p4features.h"
 #include "includes/intrinsic.p4"
 #include "includes/table_sizes.h"
-#include "includes/ingress_metadata.p4"
-#include "includes/egress_metadata.p4"
 #include "includes/constants.h"
 
 /* Define metadata variables for ingress and egress metadata */
+#include "includes/ingress_metadata.p4"
+#include "includes/egress_metadata.p4"
 metadata ingress_metadata_t ingress_metadata;
 metadata egress_metadata_t egress_metadata;
 
