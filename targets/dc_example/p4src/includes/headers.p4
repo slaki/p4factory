@@ -68,42 +68,6 @@ header_type vlan_tag_t {
     }
 }
 
-header_type vlan_tag_3b_t {
-    fields {
-        pcp : 3;
-        cfi : 1;
-        vid : 4;
-        etherType : 16;
-    }
-}
-header_type vlan_tag_5b_t {
-    fields {
-        pcp : 3;
-        cfi : 1;
-        vid : 20;
-        etherType : 16;
-    }
-}
-
-header_type ieee802_1ah_t {
-    fields {
-        pcp : 3;
-        dei : 1;
-        uca : 1;
-        reserved : 3;
-        i_sid : 24;
-    }
-}
-
-header_type mpls_t {
-    fields {
-        label : 20;
-        tc : 3;
-        bos : 1;
-        ttl : 8;
-    }
-}
-
 header_type ipv4_t {
     fields {
         version : 4;
@@ -174,15 +138,6 @@ header_type udp_t {
     }
 }
 
-header_type sctp_t {
-    fields {
-        srcPort : 16;
-        dstPort : 16;
-        verifTag : 32;
-        checksum : 32;
-    }
-}
-
 header_type gre_t {
     fields {
         C : 1;
@@ -227,23 +182,6 @@ header_type erspan_header_v2_t {
     }
 }
 
-header_type ipsec_esp_t {
-    fields {
-        spi : 32;
-        seqNo : 32;
-    }
-}
-
-header_type ipsec_ah_t {
-    fields {
-        nextHdr : 8;
-        length_ : 8;
-        zero : 16;
-        spi : 32;
-        seqNo : 32;
-    }
-}
-
 header_type arp_rarp_t {
     fields {
         hwType : 16;
@@ -260,14 +198,6 @@ header_type arp_rarp_ipv4_t {
         srcProtoAddr : 32;
         dstHwAddr : 48;
         dstProtoAddr : 32;
-    }
-}
-
-header_type eompls_t {
-    fields {
-        zero : 4;
-        reserved : 12;
-        seqNo : 16;
     }
 }
 
@@ -314,45 +244,5 @@ header_type genv_t {
         protoType : 16; 
         vni : 24; 
         reserved2 : 8; 
-    } 
-} 
- 
-#define GENV_OPTION_A_TYPE 0x000001 
-/* TODO: Would it be convenient to have some kind of sizeof macro ? */ 
-#define GENV_OPTION_A_LENGTH 2 /* in bytes */ 
- 
-header_type genv_opt_A_t { 
-    fields { 
-        optClass : 16; 
-        optType : 8; 
-        reserved : 3; 
-        optLen : 5; 
-        data : 32; 
-    } 
-} 
- 
-#define GENV_OPTION_B_TYPE 0x000002 
-#define GENV_OPTION_B_LENGTH 3 /* in bytes */ 
- 
-header_type genv_opt_B_t { 
-    fields { 
-        optClass : 16; 
-        optType : 8; 
-        reserved : 3; 
-        optLen : 5; 
-        data : 64; 
-    } 
-} 
- 
-#define GENV_OPTION_C_TYPE 0x000003 
-#define GENV_OPTION_C_LENGTH 2 /* in bytes */ 
- 
-header_type genv_opt_C_t { 
-    fields { 
-        optClass : 16; 
-        optType : 8; 
-        reserved : 3; 
-        optLen : 5; 
-        data : 32; 
     } 
 } 

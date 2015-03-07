@@ -89,8 +89,6 @@ parser parse_cpu_header {
 
 #define VLAN_DEPTH 2
 header vlan_tag_t vlan_tag_[VLAN_DEPTH];
-header vlan_tag_3b_t vlan_tag_3b[VLAN_DEPTH];
-header vlan_tag_5b_t vlan_tag_5b[VLAN_DEPTH];
 
 parser parse_vlan {
     extract(vlan_tag_[next]);
@@ -220,14 +218,6 @@ parser parse_udp {
     }
 }
 
-header sctp_t sctp;
-
-parser parse_sctp {
-    extract(sctp);
-    return ingress;
-}
-
-
 #define GRE_PROTOCOLS_NVGRE 0x6558
 #define GRE_PROTOCOLS_GRE 0x6559
 #define GRE_PROTOCOLS_ERSPAN_V1 0x88BE
@@ -314,8 +304,6 @@ header ethernet_t inner_ethernet;
 
 header ipv4_t inner_ipv4;
 header ipv6_t inner_ipv6;
-header ipv4_t outer_ipv4;
-header ipv6_t outer_ipv6;
 
 field_list inner_ipv4_checksum_list {
         inner_ipv4.version;
@@ -343,8 +331,6 @@ calculated_field inner_ipv4.hdrChecksum {
     verify inner_ipv4_checksum if(valid(ipv4));
     update inner_ipv4_checksum if(valid(ipv4));
 }
-
-header udp_t outer_udp;
 
 parser parse_nvgre {
     extract(nvgre);
@@ -396,10 +382,6 @@ parser parse_vxlan {
 }
 
 header genv_t genv;
-
-header genv_opt_A_t genv_opt_A;
-header genv_opt_B_t genv_opt_B;
-header genv_opt_C_t genv_opt_C;
 
 parser parse_geneve {
     extract(genv);
@@ -483,7 +465,6 @@ parser parse_inner_ipv4 {
         IP_PROTOCOLS_ICMP : parse_inner_icmp;
         IP_PROTOCOLS_TCP : parse_inner_tcp;
         IP_PROTOCOLS_UDP : parse_inner_udp;
-//        IP_PROTOCOLS_SCTP : parse_inner_sctp;
         default: ingress;
     }
 }
@@ -513,20 +494,12 @@ parser parse_inner_udp {
     return ingress;    
 }
 
-header sctp_t inner_sctp;
-
-parser parse_inner_sctp {
-    extract(inner_sctp);
-    return ingress;
-}
-
 parser parse_inner_ipv6 {
     extract(inner_ipv6);
     return select(latest.nextHdr) {
         IP_PROTOCOLS_ICMPV6 : parse_inner_icmpv6;
         IP_PROTOCOLS_TCP : parse_inner_tcp;
         IP_PROTOCOLS_UDP : parse_inner_udp;
-//        IP_PROTOCOLS_SCTP : parse_inner_sctp;
         default: ingress;
     }
 }
