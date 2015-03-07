@@ -17,74 +17,8 @@ action nop() {
 action on_miss() {
 }
 
-/* Table to validate outer ethernet header */
-#include "table_definitions/validate_outer_ethernet.p4"
-
-/* Table to validate outer IP header */
-#include "table_definitions/validate_outer_ipv4_packet.p4"
-
-/* Port mapping table */
-#include "table_definitions/port_mapping.p4"
-
-/* Port VLAN mapping table */
-#include "table_definitions/port_vlan_mapping.p4"
-
-/* Spanning tree table */
-#include "table_definitions/spanning_tree.p4"
-
-/* Outer RMAC table */
-#include "table_definitions/outer_rmac.p4"
-
-/* IPv4 Dest VTEP table */
-#include "table_definitions/ipv4_dest_vtep.p4"
-
-/* IPv4 Src VTEP table */
-#include "table_definitions/ipv4_src_vtep.p4"
-
-/* Tunnel table */
-#include "table_definitions/tunnel.p4"
-
-/* BD table */
-#include "table_definitions/bd.p4"
-
-/* validate packet table */
-#include "table_definitions/validate_packet.p4"
-
-/* SMAC table */
-#include "table_definitions/smac.p4"
-
-/* DMAC table */
-#include "table_definitions/dmac.p4"
-
-/* RMAC table */
-#include "table_definitions/rmac.p4"
-
-/* MAC and IP ACL */
-#include "table_definitions/mac_ip_acl.p4"
-
-/* IP_RACL table */
-#include "table_definitions/ip_racl.p4"
-
-/* IP FIB tables, both lpm and ternary */
-#include "table_definitions/ip_fib.p4"
-
-/* fwd_result table */
-#include "table_definitions/fwd_result.p4"
-
-/* ecmp_group table */
-#include "table_definitions/ecmp_group.p4"
-
-/* next hop table */
-#include "table_definitions/next_hop.p4"
-
-/* LAG group table */
-#include "table_definitions/lag_group.p4"
-
-/* system_acl table */
-#include "table_definitions/system_acl.p4"
-
-/* learn_notify table */
-#include "table_definitions/learn_notify.p4"
+/* All ingress tables */
+#include "table_definitions/ingress_tables.p4"
 
 control ingress {
 
