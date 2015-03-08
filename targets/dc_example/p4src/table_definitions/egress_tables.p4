@@ -1,4 +1,4 @@
-/* RID table */
+/* RID table, RID: Replication ID */
 #include "egress/rid.p4"
 
 /* Tunnel decap table */
