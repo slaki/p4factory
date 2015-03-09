@@ -31,10 +31,6 @@ control ingress {
         }
 
         /* input mapping - derive an ifindex */
-        /*
-         * skipping this lookup as phase 0 lookup will provide
-         * an ifindex that maps all ports in a lag to a single value
-         */
         apply(port_mapping);
 
         /* derive lif, bd */
