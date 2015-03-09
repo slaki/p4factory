@@ -44,8 +44,8 @@ table ip_acl {
         ingress_metadata.lkp_ipv4_sa : ternary;
         ingress_metadata.lkp_ipv4_da : ternary;
         ingress_metadata.lkp_ip_proto : ternary;
-        ingress_metadata.lkp_l4_sport : ternary;
-        ingress_metadata.lkp_l4_dport : ternary;
+        ingress_metadata.lkp_l4_sport : range;
+        ingress_metadata.lkp_l4_dport : range;
 
         ingress_metadata.lkp_mac_type : ternary;
         ingress_metadata.msg_type : ternary; /* ICMP code */
