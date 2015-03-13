@@ -86,6 +86,9 @@ control ingress {
         apply(learn_notify);
 
 #ifndef ACL_DISABLE
+        /* mirror ACL */
+        apply(mirror_acl);
+
         /* port and vlan ACL */
         if (ingress_metadata.lkp_ip_type == IPTYPE_NONE) {
                 apply(mac_acl);

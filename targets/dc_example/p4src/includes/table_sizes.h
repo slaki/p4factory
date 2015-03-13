@@ -36,3 +36,5 @@
 #define EGRESS_VLAN_XLATE_TABLE_SIZE           512
 #define SPANNING_TREE_TABLE_SIZE               512 
 #define CPU_REWRITE_TABLE_SIZE                 512
+#define INGRESS_MIRROR_ACL_TABLE_SIZE          512
+

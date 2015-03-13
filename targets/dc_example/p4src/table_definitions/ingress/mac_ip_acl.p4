@@ -36,6 +36,11 @@ table mac_acl {
     size : INGRESS_MAC_ACL_TABLE_SIZE;
 }
 
+counter ip_acl_counters {
+    type : packets;
+    direct : ip_acl;
+}
+
 table ip_acl {
     reads {
         ingress_metadata.if_label : ternary;
@@ -63,3 +68,30 @@ table ip_acl {
     }
     size : INGRESS_IP_ACL_TABLE_SIZE;
 }
+
+action set_mirror_id(session_id) {
+    clone_ingress_pkt_to_egress(session_id);
+}
+
+table mirror_acl {
+    reads {
+        ingress_metadata.if_label : ternary;
+        ingress_metadata.bd_label : ternary;
+
+        /* ip acl */
+        ingress_metadata.lkp_ipv4_sa : ternary;
+        ingress_metadata.lkp_ipv4_da : ternary;
+        ingress_metadata.lkp_ip_proto : ternary;
+
+        /* mac acl */
+        ingress_metadata.lkp_mac_sa : ternary;
+        ingress_metadata.lkp_mac_da : ternary;
+        ingress_metadata.lkp_mac_type : ternary;
+    }
+    actions {
+        nop;
+        set_mirror_id;
+    }
+    size : INGRESS_MIRROR_ACL_TABLE_SIZE;
+}
+    
