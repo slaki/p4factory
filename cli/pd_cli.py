@@ -378,6 +378,15 @@ class PdCli(cmd.Cmd):
       raise ValueError("Invalid %s \"%s\"." % (handle_name, handle_str))
     return handle
 
+  def get_map(self, words, map_name):
+    try:
+      map_val = self.get_handle(words, map_name)
+      if map_val >= 256:
+        raise ValueError("Invalid %s value %d. It must be less than 256." % (map_name, map_val))
+    except ValueError as ve:
+      raise ve
+    return map_val
+
   def get_table_name_and_match_tuple(self, words):
     table_name = self.get_table_name(words)
     num_match_fields = len(self._thrift_client.get_match_field_names(table_name))
@@ -521,20 +530,20 @@ class PdCli(cmd.Cmd):
   def do_mc_l2_node_create(self, line): #l1_hdl, port_map, lag_map):
     """
     mc_l2_node_create L1_HANDLE PORT_MAP LAG_MAP
-    This function creates a Level 2 multicast node with list of ports defined by PORT_MAP (as a bit vector). Currently port 0 can only be defined with this method.
+    This function creates a Level 2 multicast node with list of ports defined by PORT_MAP (as a bit vector). Currently port 0-7 can only be defined with this method, thus PORT_MAP and LAG_MAP values must be less than 256.
     For exmaple: mc_l2_node_create 1234567 30 -1
     If PORT_MAP or LAG_MAP is -1, their value is not specified.
     """
     words = collections.deque(line.split())
     try:
        l1_hdl = self.get_handle(words, "L1_HANDLE")
-       port_map = self.get_handle(words, "PORT_MAP")
-       lag_map = self.get_handle(words, "LAG_MAP")
+       port_map = self.get_map(words, "PORT_MAP")
+       lag_map = self.get_map(words, "LAG_MAP")
        ports = [0] * 32
        lags = [0] * 32
-       if port_map != -1:
+       if port_map > -1:
          ports[0] = port_map
-       if lag_map != -1:
+       if lag_map > -1:
          lags[0] = (1 << lag_map)
        l2_hdl = self._thrift_client.mc_l2_node_create(l1_hdl, ports, lags)
        print "L2 handle %d" % l2_hdl
@@ -602,19 +611,19 @@ class PdCli(cmd.Cmd):
   def do_mc_l2_node_update(self, line):
     """
     mc_l2_node_update L2_HDL PORT_MAP LAG_MAP
-    This function updates a Level-2 node. Currently, port 0 can only be updated with this function.
+    This function updates a Level-2 node. Currently, port 0-7 can only be updated with this function, thus PORT_MAP and LAG_MAP values must be less than 256.
     For example: mc_l2_node_update 1234321 14 -1
     """
     words = collections.deque(line.split())
     try:
        l2_hdl = self.get_handle(words, "L2_HDL")
-       port_map = self.get_handle(words, "PORT_MAP")
-       lag_map = self.get_handle(words, "LAG_MAP")
+       port_map = self.get_map(words, "PORT_MAP")
+       lag_map = self.get_map(words, "LAG_MAP")
        ports = [0] * 32
        lags = [0] * 32
-       if port_map != -1:
+       if port_map > -1:
          ports[0] = port_map
-       if lag_map != -1:
+       if lag_map > -1:
          lags[0] = (1 << lag_map)
        self._thrift_client.mc_l2_node_update(l2_hdl, ports, lags)
        print "Level-2 node has been updated."
